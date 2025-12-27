@@ -150,7 +150,7 @@ func main() {
 		bs := Decode(remaining, encoding)
 		Spew(remaining, bs, *_denum)
 	default:
-		fmt.Println("exit")
+		fmt.Println("'encode' or 'decode' required. nothing to do")
 		os.Exit(ErrSelectOperation)
 	}
 
