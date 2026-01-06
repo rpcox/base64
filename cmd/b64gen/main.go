@@ -10,6 +10,8 @@ import (
 )
 
 const (
+	tool             = "b64gen"
+	version          = "0.1.0"
 	ErrSelectEncoder = iota
 	ErrSelectOperation
 	ErrFileOpen
@@ -121,6 +123,13 @@ var (
 	decode = flag.NewFlagSet("dec", flag.ExitOnError)
 )
 
+func Version(b bool) {
+	if b {
+		fmt.Fprintf(os.Stdout, "%s v%s\n", tool, version)
+		os.Exit(0)
+	}
+}
+
 func main() {
 	// encode
 	_estd := encode.Bool("std", false, "Use the RFC 4648 'Standard' Base 64 alphabet")
@@ -132,8 +141,11 @@ func main() {
 	_durl := decode.Bool("url", false, "Use the RFC 4648 'URL and Filename Safe' Base 64 alphabet")
 	_denum := decode.Bool("enum", false, "Enumerate the results by line")
 	_dfile := decode.String("f", "", "Specify a file with Base 64 encoded lines")
+
+	_version := flag.Bool("version", false, "Display version and exit")
 	flag.Usage = Usage
 	flag.Parse()
+	Version(*_version)
 
 	var encoding *base64.Encoding
 
