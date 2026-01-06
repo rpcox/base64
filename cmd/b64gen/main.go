@@ -131,12 +131,12 @@ func Version(b bool) {
 }
 
 func main() {
-	// encode
+	// encode flags
 	_estd := encode.Bool("std", false, "Use the RFC 4648 'Standard' Base 64 alphabet")
 	_eurl := encode.Bool("url", false, "Use the RFC 4648 'URL and Filename Safe' Base 64 alphabet")
 	_eenum := encode.Bool("enum", false, "Enumerate the results by line")
 	_efile := encode.String("f", "", "Specify a file with Base 64 encoded lines")
-	// decode
+	// decode flags
 	_dstd := decode.Bool("std", false, "Use the RFC 4648 'Standard' Base 64 alphabet")
 	_durl := decode.Bool("url", false, "Use the RFC 4648 'URL and Filename Safe' Base 64 alphabet")
 	_denum := decode.Bool("enum", false, "Enumerate the results by line")
