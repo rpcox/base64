@@ -15,15 +15,14 @@ const (
 	ErrFileOpen
 )
 
+// Setting the encoding to use is required. The Standard or URL alphabet must be used.
 func SetEncoding(std, url bool) *base64.Encoding {
 	var encoding *base64.Encoding
 
 	if std {
 		encoding = base64.StdEncoding
-		print("std\n")
 	} else if url {
 		encoding = base64.URLEncoding
-		print("url\n")
 	} else {
 		fmt.Println("select an encoder: -std or -url required")
 		os.Exit(ErrSelectEncoder)
@@ -32,6 +31,7 @@ func SetEncoding(std, url bool) *base64.Encoding {
 	return encoding
 }
 
+// Encode the string with the specified encoding
 func Encode(str []string, encoding *base64.Encoding) [][]byte {
 	var bs [][]byte
 
@@ -44,6 +44,7 @@ func Encode(str []string, encoding *base64.Encoding) [][]byte {
 	return bs
 }
 
+// Decode the string with the specified encoding
 func Decode(str []string, encoding *base64.Encoding) [][]byte {
 	var bs [][]byte
 
@@ -56,6 +57,7 @@ func Decode(str []string, encoding *base64.Encoding) [][]byte {
 	return bs
 }
 
+// Display result to console
 func Spew(s []string, b [][]byte, enumerate bool) {
 	count := 1
 	for i, v := range s {
@@ -114,17 +116,22 @@ func EncodeFromFile(fileName string, encoding *base64.Encoding, enumerate bool) 
 	}
 }
 
+var (
+	encode = flag.NewFlagSet("enc", flag.ExitOnError)
+	decode = flag.NewFlagSet("dec", flag.ExitOnError)
+)
+
 func main() {
-	encode := flag.NewFlagSet("enc", flag.ExitOnError)
-	_estd := encode.Bool("std", false, "dafadk")
-	_eurl := encode.Bool("url", false, "dafadk")
-	_eenum := encode.Bool("enum", false, "dafadk")
-	_efile := encode.String("f", "", "dladj")
-	decode := flag.NewFlagSet("dec", flag.ExitOnError)
-	_dstd := decode.Bool("std", false, "dafadk")
-	_durl := decode.Bool("url", false, "dafadk")
-	_denum := decode.Bool("enum", false, "dafadk")
-	_dfile := decode.String("f", "", "dladj")
+	// encode
+	_estd := encode.Bool("std", false, "Use the RFC 4648 'Standard' Base 64 alphabet")
+	_eurl := encode.Bool("url", false, "Use the RFC 4648 'URL and Filename Safe' Base 64 alphabet")
+	_eenum := encode.Bool("enum", false, "Enumerate the results by line")
+	_efile := encode.String("f", "", "Specify a file with Base 64 encoded lines")
+	// decode
+	_dstd := decode.Bool("std", false, "Use the RFC 4648 'Standard' Base 64 alphabet")
+	_durl := decode.Bool("url", false, "Use the RFC 4648 'URL and Filename Safe' Base 64 alphabet")
+	_denum := decode.Bool("enum", false, "Enumerate the results by line")
+	_dfile := decode.String("f", "", "Specify a file with Base 64 encoded lines")
 	flag.Usage = Usage
 	flag.Parse()
 
