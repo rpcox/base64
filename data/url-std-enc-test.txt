@@ -1,0 +1,2 @@
+https://example.com/query?=abc+def&xyz
+https://example.com/api/v2/query?=abc+def&xyz
