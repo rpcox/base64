@@ -1,3 +1,4 @@
+// A simple tool to generate base64 encoded strings using standard and url alphabets
 package main
 
 import (
@@ -19,8 +20,10 @@ func SetEncoding(std, url bool) *base64.Encoding {
 
 	if std {
 		encoding = base64.StdEncoding
+		print("std\n")
 	} else if url {
 		encoding = base64.URLEncoding
+		print("url\n")
 	} else {
 		fmt.Println("select an encoder: -std or -url required")
 		os.Exit(ErrSelectEncoder)
