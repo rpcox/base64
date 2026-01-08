@@ -64,10 +64,10 @@ func Spew(s []string, b [][]byte, enumerate bool) {
 	count := 1
 	for i, v := range s {
 		if enumerate {
-			fmt.Fprintf(os.Stdout, "%8d:\t%s\t%s\n", count, v, string(b[i]))
+			fmt.Fprintf(os.Stdout, "%8d: %-32s  %s\n", count, v, string(b[i]))
 			count++
 		} else {
-			fmt.Fprintf(os.Stdout, "%s\t%s\n", v, string(b[i]))
+			fmt.Fprintf(os.Stdout, "%-32s  %s\n", v, string(b[i]))
 		}
 	}
 }
@@ -87,10 +87,10 @@ func DecodeFromFile(fileName string, encoding *base64.Encoding, enumerate bool) 
 		dst := make([]byte, encoding.DecodedLen(len(text)))
 		encoding.Decode(dst, []byte(text))
 		if enumerate {
-			fmt.Fprintf(os.Stdout, "%8d:\t%s\t%s\n", count, text, string(dst))
+			fmt.Fprintf(os.Stdout, "%8d: %-32s %s\n", count, text, string(dst))
 			count++
 		} else {
-			fmt.Fprintf(os.Stdout, "%s\t%s\n", text, string(dst))
+			fmt.Fprintf(os.Stdout, "%-32s  %s\n", text, string(dst))
 		}
 	}
 }
@@ -110,10 +110,10 @@ func EncodeFromFile(fileName string, encoding *base64.Encoding, enumerate bool) 
 		dst := make([]byte, encoding.EncodedLen(len(text)))
 		encoding.Encode(dst, []byte(text))
 		if enumerate {
-			fmt.Fprintf(os.Stdout, "%8d:\t%s\t%s\n", count, text, string(dst))
+			fmt.Fprintf(os.Stdout, "%8d: %-32s %s\n", count, text, string(dst))
 			count++
 		} else {
-			fmt.Fprintf(os.Stdout, "%s\t%s\n", text, string(dst))
+			fmt.Fprintf(os.Stdout, "%-32s  %s\n", text, string(dst))
 		}
 	}
 }
